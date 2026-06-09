@@ -8,6 +8,7 @@ public:
     void processStep(const std::string& step, double duration);
     double getYield() const;
     int getId() const;
+    std::vector<std::string> getHistory() const;
 
 private:
     int id_;

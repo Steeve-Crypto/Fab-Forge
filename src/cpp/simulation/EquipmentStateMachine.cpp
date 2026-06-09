@@ -15,6 +15,10 @@ void EquipmentStateMachine::transition(EquipmentState newState) {
     currentState_ = newState;
 }
 
+void EquipmentStateMachine::transitionTo(EquipmentState newState) {
+    transition(newState);  // thin wrapper for PyBind11 / older callers
+}
+
 EquipmentState EquipmentStateMachine::getCurrentState() const {
     return currentState_;
 }

@@ -5,7 +5,7 @@ services:
     build: .
     ports:
       - "8000:8000"
-      - "8501:8501"
+      # 8501 was historically referenced for a Streamlit dashboard (now removed in favor of the Vue + FastAPI UI)
     volumes:
       - .:/app
     environment:

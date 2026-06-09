@@ -23,6 +23,7 @@ RUN mkdir -p build && cd build && cmake .. && make -j2
 # Install Python package
 RUN pip install -e .
 
-EXPOSE 8000 8501 1883
+EXPOSE 8000 1883
+# 8501 was historically for a Streamlit dashboard (superseded by the Vue + FastAPI stack on 8000)
 
 CMD ["uvicorn", "dashboard.fastapi_backend:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,10 @@
+^C:\USERS\12404\DOWNLOADS\QUANT I\FAB\BUILD-WIN\CMAKEFILES\21622BBDC162223E104BD9D8041ED3ED\GENERATE.STAMP.RULE
+setlocal
+C:\Users\12404\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\cmake\data\bin\cmake.exe "-SC:/Users/12404/Downloads/Quant I/fab" "-BC:/Users/12404/Downloads/Quant I/fab/build-win" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/12404/Downloads/Quant I/fab/build-win/FabForge.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -12,3 +12,4 @@ void Wafer::processStep(const std::string& step, double duration) {
 
 double Wafer::getYield() const { return yield_; }
 int Wafer::getId() const { return id_; }
+std::vector<std::string> Wafer::getHistory() const { return processHistory_; }

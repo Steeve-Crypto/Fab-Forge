@@ -32,9 +32,17 @@ Runs genetic algorithm or RL for scheduling.
 
 ### Data & Dashboard
 ```bash
-grok-fab dashboard --port 8501
+grok-fab dashboard --port 8000
 ```
-Launches Streamlit visualization.
+Launches the FastAPI backend (for the Vue.js dashboard).
+
+To run the full interactive dashboard:
+- Terminal 1: `python -m uvicorn dashboard.fastapi_backend:app --port 8000`
+- Terminal 2: `cd dashboard/vue-app && npm run dev`
+
+Then open the URL shown by Vite (usually http://localhost:5173 or 5174). This is the primary production-style dashboard with WebSocket live updates, simulation player, controls, predictive maintenance, SECS/GEM panel, etc.
+
+(Note: Older project docs referenced a Streamlit dashboard on port 8501. That was superseded by the current Vue + FastAPI implementation. Streamlit is no longer used.)
 
 ### Protocols
 ```bash

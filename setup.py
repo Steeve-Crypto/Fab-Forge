@@ -7,7 +7,7 @@ setup(
     install_requires=["paho-mqtt", "click", "fastapi", "uvicorn", "asyncua", "torch", "scikit-learn"],
     entry_points={
         'console_scripts': [
-            'grok-fab = fabforge.cli:main',
+            'grok-fab = fabforge.cli:cli',
         ],
     },
 )

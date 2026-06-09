@@ -1,0 +1,4 @@
+C:/Users/12404/Downloads/Quant I/fab/build-win/CMakeFiles/fab_sim.dir
+C:/Users/12404/Downloads/Quant I/fab/build-win/CMakeFiles/fabforge_cpp.dir
+C:/Users/12404/Downloads/Quant I/fab/build-win/CMakeFiles/ALL_BUILD.dir
+C:/Users/12404/Downloads/Quant I/fab/build-win/CMakeFiles/ZERO_CHECK.dir

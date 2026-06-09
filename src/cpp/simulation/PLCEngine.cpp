@@ -17,6 +17,10 @@ void PLCEngine::executeLadderLogic() {
     }
 }
 
+void PLCEngine::executeRung() {
+    executeLadderLogic();  // alias for PyBind11 bindings compatibility
+}
+
 void PLCEngine::sequenceProcess(int waferId) {
     std::cout << "PLC Sequencing wafer " << waferId << " through tools..." << std::endl;
     for (auto* eq : equipments_) {

@@ -5,12 +5,20 @@
 #include <queue>
 #include <memory>
 #include <chrono>
+#include <vector>
+#include <string>
 
 class FabSimulator {
 public:
     FabSimulator();
     void runSimulation(int numWafers, int steps);
     void addEquipment(const std::string& name);
+
+    // Expose detailed per-wafer results for dashboard (Python bindings)
+    std::vector<double> getWaferYields() const;
+    std::vector<std::vector<std::string>> getWaferHistories() const;
+    // Convenience: average yield after run
+    double getAverageYield() const;
 
 private:
     std::vector<std::unique_ptr<Wafer>> wafers_;

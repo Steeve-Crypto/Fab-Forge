@@ -45,9 +45,10 @@ def main():
     run_command("python -m fabforge.rl_optimizer --episodes 50 --quick", "PPO RL Scheduling Optimization (Stable-Baselines3)")
     
     # 6. Launch Dashboard (background hint)
-    print("\n🌐 Launch Full Dashboard:")
-    print("uvicorn dashboard.fastapi_backend:app --reload --port 8000")
+    print("\n🌐 Launch Full Dashboard (run the backend command from the PROJECT ROOT):")
+    print("python -m uvicorn dashboard.fastapi_backend:app --reload --port 8000")
     print("cd dashboard/vue-app && npm run dev")
+    print("\n(Or, after `pip install -e .`, simply run: grok-fab dashboard --port 8000)")
     
     print("\n✅ End-to-End Demo Complete! Portfolio-ready for Terafab interviews.")
     print("ZIP: fabforge_project.zip updated.")

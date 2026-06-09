@@ -54,3 +54,28 @@ void FabSimulator::runSimulation(int numWafers, int steps) {
     }
     std::cout << "Simulation complete. Average Yield: " << (totalYield / numWafers) << std::endl;
 }
+
+std::vector<double> FabSimulator::getWaferYields() const {
+    std::vector<double> yields;
+    yields.reserve(wafers_.size());
+    for (const auto& w : wafers_) {
+        yields.push_back(w->getYield());
+    }
+    return yields;
+}
+
+std::vector<std::vector<std::string>> FabSimulator::getWaferHistories() const {
+    std::vector<std::vector<std::string>> histories;
+    histories.reserve(wafers_.size());
+    for (const auto& w : wafers_) {
+        histories.push_back(w->getHistory());
+    }
+    return histories;
+}
+
+double FabSimulator::getAverageYield() const {
+    if (wafers_.empty()) return 0.0;
+    double sum = 0.0;
+    for (const auto& w : wafers_) sum += w->getYield();
+    return sum / wafers_.size();
+}
