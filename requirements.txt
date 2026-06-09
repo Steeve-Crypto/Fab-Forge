@@ -1,0 +1,10 @@
+paho-mqtt
+click
+streamlit
+pandas
+numpy
+psycopg2-binary
+asyncua
+stable-baselines3
+gymnasium
+shimmy
