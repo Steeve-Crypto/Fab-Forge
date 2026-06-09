@@ -132,5 +132,3 @@ See also:
 - `CLI.md` — full command reference
 - `docs/` — deployment, predictive maintenance, demo video script
 - `demo/end_to_end_demo.py` — scripted full pipeline walk-through
-
-Run it. Break it. Improve it. Ship it. Land the role.
