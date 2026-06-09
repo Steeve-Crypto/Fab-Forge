@@ -4,6 +4,8 @@
 **Role**: Automation & Controls Software Engineer (AI / Digital Twin focus)  
 **Project**: FabForge — Intelligent Semiconductor Fab Simulator & Automation Engine
 
+**For the full story** (real-world value, detailed breakdown of every section + how to use it, complete UI feature tour, and explicit list of capabilities that are *not* available in the browser), see `docs/USAGE_AND_REAL_WORLD_GUIDE.md`.
+
 ---
 
 ## One-Pager Summary (for Recruiter / Hiring Manager)

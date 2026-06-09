@@ -7,6 +7,8 @@
 
 See `Terafab_Application_Package.md` for resume bullets, demo video script, and GitHub setup instructions.
 
+**For a complete explanation of real-world value, every section/layer, detailed UI usage, and features that exist only outside the browser UI, read `docs/USAGE_AND_REAL_WORLD_GUIDE.md`.**
+
 It delivers a **full digital twin** of a multi-stage wafer fab with real-time controls, industrial protocols, ML predictive maintenance, and PPO reinforcement learning optimization — all exposed through a beautiful live Vue + FastAPI dashboard with WebSocket streaming.
 
 ## Highlights (What Makes This Stand Out)

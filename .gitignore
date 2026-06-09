@@ -1,0 +1,144 @@
+# =============================================================================
+# FabForge .gitignore
+# Generated build artifacts, caches, personal data, and dependencies
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# -----------------------------------------------------------------------------
+# C / C++ / CMake build outputs (Visual Studio, Ninja, etc.)
+# -----------------------------------------------------------------------------
+build/
+build-*/
+*.pyd
+*.dll
+*.exe
+*.obj
+*.o
+*.lib
+*.exp
+*.pdb
+*.idb
+*.tlog
+*.recipe
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+*.vcxproj*
+*.sln
+*.suo
+*.user
+*.filters
+*.lastbuildstate
+
+# Specific built artifacts in this project
+fab_sim
+fab_sim.exe
+fabforge_cpp*.pyd
+
+# -----------------------------------------------------------------------------
+# Node.js / Frontend
+# -----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# -----------------------------------------------------------------------------
+# Generated data / ML artifacts / logs (from running the app)
+# -----------------------------------------------------------------------------
+models/
+tb_logs/
+*.log
+logs/
+*.pkl
+*.zip   # e.g. saved PPO models if large
+
+# -----------------------------------------------------------------------------
+# Testing & Coverage
+# -----------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# -----------------------------------------------------------------------------
+# IDE / Editor
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# -----------------------------------------------------------------------------
+# OS generated
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# -----------------------------------------------------------------------------
+# Environment / secrets (personal)
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# -----------------------------------------------------------------------------
+# Grok / AI session artifacts (personal to this tool session)
+# These live in ~/.grok/ outside the repo, but ignore if ever copied in
+# -----------------------------------------------------------------------------
+plan.md
+*.session
+.grok/
+
+# -----------------------------------------------------------------------------
+# Misc
+# -----------------------------------------------------------------------------
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# Keep important lockfiles and source (do NOT ignore these):
+# - package-lock.json (in vue-app)
+# - requirements.txt
+# - setup.py
+# - All source code under src/, fabforge/, dashboard/ (except node_modules and __pycache__)
+# - docs/ (including the generated USAGE guide)
+# - .github/ workflows
