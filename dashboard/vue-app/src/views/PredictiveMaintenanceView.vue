@@ -25,6 +25,11 @@
           RT: {{ tool.sensors?.runtime || '—' }}h
         </div>
 
+        <div v-if="tool.anomaly_score !== undefined" style="font-size:11px;margin-bottom:6px">
+          Anomaly: <b :style="{color: tool.is_anomaly ? '#ff4d4f' : '#00ff9d'}">{{ (tool.anomaly_score*100).toFixed(0) }}%</b>
+          <span v-if="tool.is_anomaly" style="color:#ff4d4f"> • DRIFT DETECTED</span>
+        </div>
+
         <button class="btn" style="width:100%" @click="runPredict(tool)">RUN PREDICTION</button>
 
         <canvas v-if="tool.chartData" :ref="'chart_'+tool.name" width="210" height="92" style="margin-top:10px"></canvas>
@@ -75,15 +80,19 @@ export default {
         const { data } = await axios.post('/api/predict', { tool: tool.name, sensors: tool.sensors })
         tool.risk = data.failure_prob
         tool.alert = data.alert
-        tool.status = data.alert ? 'MAINT' : 'HEALTHY'
+        tool.status = (data.alert || data.is_anomaly) ? 'MAINT' : 'HEALTHY'
         tool.sensors = data.sensors
-        if (data.alert) this.lastAlert = data
+        tool.anomaly_score = data.anomaly_score
+        tool.is_anomaly = data.is_anomaly
+        if (data.alert || data.is_anomaly) this.lastAlert = data
         this.$nextTick(() => this.renderMiniChart(tool))
       } catch (e) {
         // offline fallback
         tool.risk = Math.min(0.94, tool.risk + 0.22)
         tool.alert = tool.risk > 0.58
-        if (tool.alert) this.lastAlert = { tool: tool.name, recommendation: 'Schedule maintenance' }
+        tool.anomaly_score = Math.min(0.95, (tool.anomaly_score || 0.2) + 0.25)
+        tool.is_anomaly = tool.anomaly_score > 0.45
+        if (tool.alert || tool.is_anomaly) this.lastAlert = { tool: tool.name, recommendation: 'Schedule maintenance' }
         this.$nextTick(() => this.renderMiniChart(tool))
       }
     },

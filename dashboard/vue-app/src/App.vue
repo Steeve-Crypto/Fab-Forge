@@ -36,8 +36,24 @@
     </div>
 
     <footer class="footer">
-      <div>Terafab • 1TW-scale AI silicon • Real-time OPC-UA + MQTT + PPO RL</div>
-      <div class="events-mini" v-if="recentEvent">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div>Terafab • 1TW-scale AI silicon • Real-time OPC-UA + MQTT + PPO RL</div>
+        <button class="btn secondary" style="padding:2px 8px;font-size:10px" @click="showTimeline = !showTimeline">
+          {{ showTimeline ? 'HIDE' : 'SHOW' }} TIMELINE ({{ timeline.length }})
+        </button>
+      </div>
+
+      <!-- Unified Central Event Timeline -->
+      <div v-if="showTimeline" class="timeline" style="width:100%;margin-top:6px;max-height:120px;overflow:auto;font-size:11px;border-top:1px solid #1f2835;padding-top:4px">
+        <div v-for="(ev, i) in timeline.slice(0, 12)" :key="i" style="padding:1px 0;display:flex;gap:8px">
+          <span style="color:#5a6878;min-width:58px">{{ formatTime(ev.ts) }}</span>
+          <span :style="{color: ev.kind.includes('alert') || ev.kind==='training' ? '#ff4d4f' : '#00d1ff' }">[{{ ev.kind }}]</span>
+          <span style="color:#d6e1ed">{{ ev.message }}</span>
+        </div>
+        <div v-if="!timeline.length" style="color:#5a6878">No events yet — run a simulation or send a control command.</div>
+      </div>
+
+      <div class="events-mini" v-if="recentEvent && !showTimeline">
         LAST: <span>{{ recentEvent.message }}</span>
       </div>
     </footer>
@@ -52,8 +68,11 @@ import axios from 'axios'
 const wsConnected = ref(false)
 const quickMetrics = reactive({ YIELD: '—', WPH: '—', TOOLS: '3/3', ALERTS: '0' })
 const recentEvent = ref(null)
+const timeline = ref([])   // unified central event timeline
+const showTimeline = ref(true)
 let ws = null
 let statusTimer = null
+let eventsTimer = null
 
 function connectLiveWS() {
   // Direct to backend (vite proxy covers /api http only)
@@ -73,6 +92,9 @@ function connectLiveWS() {
         }
         if (msg.type === 'init' && msg.state) {
           updateQuickFromState(msg.state)
+        }
+        if (msg.type === 'sim_step' || msg.type === 'training' || msg.type === 'event') {
+          addToTimeline(msg.type, msg.message || `${msg.type} update`)
         }
       } catch (_) {}
     }
@@ -97,7 +119,18 @@ function onFabEvent(evt) {
     if (evt.fab_state && evt.fab_state.throughput) quickMetrics.WPH = evt.fab_state.throughput
   }
   recentEvent.value = { message: evt?.message || 'Event received' }
+  addToTimeline('event', evt?.message || 'Event')
   setTimeout(() => { recentEvent.value = null }, 4200)
+}
+
+function addToTimeline(kind, message, extra = {}) {
+  const entry = { ts: Date.now() / 1000, kind, message, ...extra }
+  timeline.value.unshift(entry)
+  if (timeline.value.length > 40) timeline.value.pop()
+}
+
+function formatTime(ts) {
+  return new Date(ts * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
 }
 
 async function pollStatus() {
@@ -116,6 +149,10 @@ onMounted(() => {
   connectLiveWS()
   pollStatus()
   statusTimer = setInterval(pollStatus, 6500)
+  // Seed unified timeline
+  fetch('/api/events?limit=8').then(r => r.json()).then(d => {
+    (d.events || []).forEach(e => addToTimeline(e.kind || 'event', e.message || JSON.stringify(e)))
+  }).catch(() => {})
 })
 
 onUnmounted(() => {
