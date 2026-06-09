@@ -32,7 +32,14 @@ See `CLI.md` for command-line interface usage.
 - `tests/` - Unit and integration tests
 
 **Target**: Portfolio project to land Automation Software Engineer role at Terafab.
-## Predictive Maintenance Module (New)
-- ML-based failure prediction (RandomForest + time-series)
+## Predictive Maintenance Module (New) + TensorBoard RL Visuals
+- ML-based failure prediction (RandomForest + time-series) with Vue charts/alerts
+- **TensorBoard Integration**: PPO RL training curves (rewards, policy loss, value loss, throughput) for deep analysis
 - Integrates with MQTT/OPC-UA/RL for proactive fab maintenance
 - Critical for Terafab's high-uptime AI chip production
+
+**TensorBoard Usage**:
+```bash
+tensorboard --logdir ./tb_logs --port 6006
+```
+Open http://localhost:6006 to visualize live RL training metrics.

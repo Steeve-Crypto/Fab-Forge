@@ -48,7 +48,7 @@ class RLFabOptimizer:
         print("This demonstrates advanced RL for Terafab throughput & yield optimization.")
 
         self.model = PPO("MlpPolicy", self.env, verbose=1, learning_rate=3e-4, n_steps=2048,
-                         batch_size=64, gae_lambda=0.95, gamma=0.99, tensorboard_log="./tb_logs/")
+                         batch_size=64, gae_lambda=0.95, gamma=0.99, tensorboard_log="./tb_logs/fabforge_ppo/")
 
         eval_env = make_vec_env(lambda: FabEnv(self.num_wafers, self.num_equipment), n_envs=1)
         eval_callback = EvalCallback(eval_env, best_model_save_path="./models/",
@@ -83,5 +83,7 @@ class RLFabOptimizer:
 
 if __name__ == "__main__":
     os.makedirs("models", exist_ok=True)
+    os.makedirs("tb_logs", exist_ok=True)
     optimizer = RLFabOptimizer()
     optimizer.train(total_timesteps=50000)  # Reduced for demo speed
+    print("✅ TensorBoard logs generated in ./tb_logs/fabforge_ppo/ - Run `tensorboard --logdir ./tb_logs` to visualize RL training curves (reward, loss, throughput)!")
